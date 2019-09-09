@@ -1,0 +1,11 @@
+<div class="bg-gray-100 ">
+	<nav>
+		<ul class="flex">
+	  		{% for item in site.data.navigation %}
+	  		<li class="mr-6">
+	    		<a class="text-gray-800 hover:text-green-400" href="{{ item.link }}" {% if page.url == item.link %}class="current"{% endif %}>{{ item.name }}</a>
+	    	</li>
+	  		{% endfor %}
+	  	</ul>
+	</nav>
+</div>
