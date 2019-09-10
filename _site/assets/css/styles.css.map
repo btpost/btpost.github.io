@@ -7,8 +7,8 @@
 	],
 	"sourcesContent": [
 		"@import \"main\";",
-		".current {\n  color: green;\n}"
+		".font-mono {\n\tfont-family: Consolas, Courier, \"Courier New\", monospace;\n}\n\n"
 	],
 	"names": [],
-	"mappings": "ACAA,AAAA,QAAQ,CAAC,EACP,KAAK,EAAE,KAAK,GACb"
+	"mappings": "ACAA,AAAA,UAAU,CAAC,EACV,WAAW,EAAE,2CAA2C,GACxD"
 }

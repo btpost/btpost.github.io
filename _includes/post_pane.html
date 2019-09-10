@@ -1,0 +1,15 @@
+<div class="container mx-auto p-4 w-4/5">
+		{% for post in site.posts %}
+		<div class="mt-4">
+				<p class="text-2xl underline text-left">{{post.title}}</p>
+
+				{{post.date | date_to_string}} 
+
+				{% if post.topic %}
+			  	in <a class="hover:text-gray-500 bg-blue-700 font-semibold rounded p-1" href="topics/{{ post.topic | downcase}}.html">{{ post.topic }}</a>
+			  	{% endif %}
+				
+				<p class="mt-2">{{ post.excerpt | strip_html | strip_newlines | truncate: 140 }}</p>
+		</div>
+		{% endfor %}
+</div>

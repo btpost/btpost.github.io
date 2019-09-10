@@ -1,11 +1,24 @@
-<div class="bg-gray-100 ">
-	<nav>
-		<ul class="flex">
-	  		{% for item in site.data.navigation %}
-	  		<li class="mr-6">
-	    		<a class="text-gray-800 hover:text-green-400" href="{{ item.link }}" {% if page.url == item.link %}class="current"{% endif %}>{{ item.name }}</a>
-	    	</li>
-	  		{% endfor %}
-	  	</ul>
-	</nav>
+<div>
+	<h1 class="text-4xl font-mono text-teal-500 ml-2 inline"> Brad's Blog </h1>
+	<p class="text-xl font-mono ml-2 inline">Computers and Math</p>
+		<nav>
+			<ul class="flex">
+		  		{% for item in site.data.navigation %}
+		  		<div class="bg-blue-900 text-teal-500 border-2 border-teal-500 w-1/6 text-xl text-center font-mono font-semibold hover:bg-teal-500 hover:text-blue-900">
+			  		<a href="{{ item.link }}" {% if page.url == item.link %}class="current"{% endif %}>
+				  		<li class="my-3">
+				    		{{ item.name }}
+				    	</li>
+			    	</a>
+		   		</div>
+		  		{% endfor %}
+		  		<div class="border-teal-500 border-t-2 border-b-2 border-r-2 border-l-2 w-full">
+			  		<a href="/about.html">
+				  		<p class="text-teal-500 text-xl font-mono my-4 ml-8 font-semibold">
+				  			Please Hire Me :)
+				  		</p>
+				  	</a>
+			  </div>
+		  	</ul>
+		</nav>
 </div>

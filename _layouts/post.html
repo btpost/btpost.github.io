@@ -2,19 +2,19 @@
 layout: default
 ---
 <div class="container text-gray-800 mx-auto w-11/12">
-	<div class="container bg-gray-100 border border-gray-300 text-gray-800 mt-4 mx-auto w-3/4 p-3 font-sans">
+	<div class="container bg-gray-300 border-4 border-gray-600 rounded-lg text-gray-800 mt-4 mx-auto w-4/5 p-3 font-sans">
 		<h1 class="text-4xl">{{ page.title }}</h1>
 		<p class="text-base ml-4">
 			Written {{ page.date | date_to_string }}
 			{% assign topic = site.topics | where: 'name', page.topic | first %}
 			{% if topic %}
-		    - <a href="{{ topic.url }}">{{ topic.name }}</a>
+		    in <a class="hover:text-green-700 bg-gray-100 rounded p-1" href="{{ topic.url }}">{{ topic.name }}</a>
 		  	{% endif %}
 		</p>
 	</div>
 
 
-	<div class="container bg-gray-100 text-gray-800 border border-gray-300 mt-4 p-5 w-4/5 mx-auto font-sans">
+	<div class="container bg-gray-300 text-gray-800 mt-4 p-5 w-4/5 mx-auto rounded-lg font-sans">
 {{ content }}
 	</div>
 </div>
