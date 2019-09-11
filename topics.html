@@ -2,13 +2,19 @@
 layout: default
 title: Topics
 ---
-<h1 class="text-4xl font-sans mx-32 my-4 text-gray-400">Topics</h1>
+<h1 class="text-center text-4xl mt-4 font-semibold">Topics</h1>
 
 <ul>
   {% for topic in site.topics %}
-    <li class="container bg-gray-300 border-2 border-gray-600 text-gray-800 mt-4 mx-32 w-3/4 p-3 font-sans">
-      <h2 class="text-2xl p-3 hover:text-indigo-700"><a href="{{ topic.url }}">{{ topic.name }}</a></h2>
-      <p class="p-2 ml-2">{{ topic.content | markdownify }}</p>
-    </li>
+  	<a href="{{ topic.url }}">
+  		<div class="w-4/5 mx-auto border-2 border-teal-500 mt-4 hover:text-blue-900 hover:bg-teal-500 hover:font-semibold">
+	    <li>
+	      <h2 class="text-2xl">{{ topic.name }}</h2>
+	      <p class="p-2 ml-2">{{ topic.content | markdownify }}</p>
+	    </li>
+	</div></a>
   {% endfor %}
+  <div class="h-10"></div>
+  <div class="h-10"></div>
+  <div class="h-8"></div>
 </ul>

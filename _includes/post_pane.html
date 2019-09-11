@@ -1,7 +1,7 @@
 <div class="container mx-auto p-4 w-4/5">
 		{% for post in site.posts %}
 		<div class="mt-4">
-				<p class="text-2xl underline text-left">{{post.title}}</p>
+				<a href="{{ post.url }}"><p class="text-2xl underline text-left hover:no-underline">{{post.title}}</p></a>
 
 				{{post.date | date_to_string}} 
 
