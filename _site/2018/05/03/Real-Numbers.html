@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Real Numbers</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: [
+      "MathMenu.js",
+      "MathZoom.js",
+      "AssistiveMML.js",
+      "a11y/accessibility-menu.js"
+    ],
+    jax: ["input/TeX", "output/CommonHTML"],
+    TeX: {
+      extensions: [
+        "AMSmath.js",
+        "AMSsymbols.js",
+        "noErrors.js",
+        "noUndefined.js",
+      ]
+    }
+  });
+</script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" />
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Real Numbers</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Real Numbers" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This is a question that may not have occurred to you. What is a real number? Can we explicitly define all of them? It’s harder than it sounds. It took us until about 100 years ago to really pin down what they are, and how to construct them. Here’s a brief synopsis of their history, and some modern definitions of the original uncountable set." />
+<meta property="og:description" content="This is a question that may not have occurred to you. What is a real number? Can we explicitly define all of them? It’s harder than it sounds. It took us until about 100 years ago to really pin down what they are, and how to construct them. Here’s a brief synopsis of their history, and some modern definitions of the original uncountable set." />
+<link rel="canonical" href="http://localhost:4000/2018/05/03/Real-Numbers.html" />
+<meta property="og:url" content="http://localhost:4000/2018/05/03/Real-Numbers.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-05-03T00:00:00-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2018-05-03T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/05/03/Real-Numbers.html"},"url":"http://localhost:4000/2018/05/03/Real-Numbers.html","headline":"Real Numbers","description":"This is a question that may not have occurred to you. What is a real number? Can we explicitly define all of them? It’s harder than it sounds. It took us until about 100 years ago to really pin down what they are, and how to construct them. Here’s a brief synopsis of their history, and some modern definitions of the original uncountable set.","dateModified":"2018-05-03T00:00:00-05:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+  <body class="bg-blue-900 text-teal-400 font-normal font-mono">
+    <div>
+	<h1 class="text-4xl font-mono text-teal-500 ml-2 inline"> Brad's Blog </h1>
+	<p class="text-xl font-mono ml-2 inline">Computers and Math</p>
+		<nav>
+			<ul class="flex">
+		  		
+		  		<div class="bg-blue-900 text-teal-500 border-2 border-teal-500 w-1/6 text-xl text-center font-mono font-semibold hover:bg-teal-500 hover:text-blue-900">
+			  		<a href="/" >
+				  		<li class="my-3">
+				    		Blog
+				    	</li>
+			    	</a>
+		   		</div>
+		  		
+		  		<div class="bg-blue-900 text-teal-500 border-2 border-teal-500 w-1/6 text-xl text-center font-mono font-semibold hover:bg-teal-500 hover:text-blue-900">
+			  		<a href="/about.html" >
+				  		<li class="my-3">
+				    		About
+				    	</li>
+			    	</a>
+		   		</div>
+		  		
+		  		<div class="bg-blue-900 text-teal-500 border-2 border-teal-500 w-1/6 text-xl text-center font-mono font-semibold hover:bg-teal-500 hover:text-blue-900">
+			  		<a href="/topics.html" >
+				  		<li class="my-3">
+				    		Topics
+				    	</li>
+			    	</a>
+		   		</div>
+		  		
+		  		<div class="flex border-teal-500 border-t-2 border-b-2 border-r-2 border-l-2 w-full inline-block justify-end">
+			  		<a class="my-auto ml-4" href="https://www.linkedin.com/in/bradley-post-346915181"><img  src="/assets/images/linkedin-128.png" width="50" height="50" /></a>
+			  		<a class="my-auto ml-4 mr-16" href="https://github.com/btpost/"><img  src="/assets/images/GitHub-Mark-64px.png" width="50" height="50" /></a>
+			  </div>
+			  
+		  	</ul>
+		</nav>
+</div>
+    <div class="w-4/5 mx-auto">
+	<h1 class="text-center text-4xl font-semibold">Real Numbers</h1>
+		<p class="text-base my-4">
+			Written 03 May 2018
+			
+			
+		    in <a class="hover:text-gray-500 bg-blue-700 font-semibold rounded p-1" href="/topics/math.html">Math</a>
+		  	
+		</p>
+<p>This is a question that may not have occurred to you. What is a real number? Can we explicitly define all of them?  It’s harder than it sounds. It took us until about 100 years ago to really pin down what they are, and how to construct them. Here’s a brief synopsis of their history, and some modern definitions of the original uncountable set.</p>
+
+<h2 id="naive-definitions">Naive Definitions</h2>
+
+<p>Humans have been using numbers since the inception of civilization. The Egyptians were among the first to start making use of fractions. Then, Indian mathematicians found some numbers that couldn’t be represented by fractions. They left it there. The Greeks tried to clearly explained what irrationality was, and why it was. Euclid tried to give a definition of what he called “magnitudes” in Book V of <em>The</em> <em>Elements</em>, but it doesn’t make a lot of sense by modern standards. Basically, he described them as ratios of other magnitudes, but he doesn’t really give an axiomatic definition for magnitudes in the first place. The most important piece of this whole magnitude thing is probably def. 4, which says, “Magnitudes are said to have a ratio to one another which can, when multiplied, exceed one another.” Basically, for every two numbers, where the second is bigger than the first, there is a third number we can multiply by the first so that their product will be greater than the second number. It doesn’t matter how big the second number is. We now call this the Archimedean Property, because Otto Stolz decided that’s what he wanted to call it (he had his reasons). What this really means is that <a href="https://en.wikipedia.org/wiki/Infinitesimal">infinitesimals</a> are not numbers. As an aside, Euclid did conceive of an equivalence relation between ratios, and defined most of our modern axioms for <a href="https://en.wikipedia.org/wiki/Equivalence_relation">equivalence relations</a> (he didn’t explicitly state symmetry).</p>
+
+<p>For about 2000 years, this is as far as we really cared to go on the topic. René Descartes (of Cartesian plane fame) was the first to define the set of real numbers. He called them “real”, as opposed to the “imaginary”, numbers that are multiples of <script type="math/tex">\sqrt{-1}</script> which he decided were fine to use now, given the right context (It took mathematicians a long time to widely accept imaginary numbers. A lot of people thought Descartes was crazy for using them). This definition of real numbers didn’t really bother anyone, because they were busy freaking out about this whole new set of other numbers. Simon Stevin popularized decimal notation in the west, and posited that rational and irrational numbers could be grouped together since they could both be represented by infinite decimals. So, at this point, it was just whatever digits you throw together, that’s a real number. Equivalently, any value you can get from a number line (at least I think these two things are equivalent).</p>
+
+<p>Things didn’t get serious until the 19th century, when mathematicians got really into rigor and having a clear axiomatic basis for everything.</p>
+
+<h2 id="transcendental-numbers">Transcendental Numbers</h2>
+<p>I’m going to take a quick detour from real number definitions to talk about <em>transcendental</em> numbers. We can split the real numbers into two groups, besides the classic rational and irrational distinction. These are <em>algebraic</em> and <em>transcendental</em> numbers. Algebraic numbers are solutions to polynomials with rational coefficients.  For example, <script type="math/tex">\sqrt{2}</script> is a solution for the polynomial <script type="math/tex">f(x) = x^2 - 2</script>. This covers all radicals (but not necessarily all <a href="https://en.wikipedia.org/wiki/Linear_combination">linear combinations</a> of radicals). But, there are some irrational numbers we have proven not to be solutions  to polynomials. These are transcendental.  These include π, <em>e</em>, and infinitely many others. Proving that a number is transcendental is non-trivial, and it took until 1794 for Adrien-Marie Legendre to prove that π was not the square root of a rational number. Evaristé Galois came up with some bonkers math in 1832 that helped us figure out what polynomials could be solved with standard arithmetic. This became the basis for the study of transcendental numbers. Then in 1840, Joseph Liouville showed <script type="math/tex">e</script> and <script type="math/tex">e^2</script> were not roots of a quadratic. He also showed transcendental numbers existed (we weren’t sure before because we had only showed these numbers couldn’t be solutions to specific sets of rational polynomials, and not all of them). Charles Hermite showed that <em>e</em> was transcendental in 1873, and then Ferdinand von Lindemann showed π  was transcendental in 1882. This new information about how numbers were constructed had a huge impact on how mathematicians went about defining real numbers.</p>
+<h2 id="rigorous-definitions-of-real-numbers">Rigorous Definitions of Real Numbers</h2>
+<p>Georg Cantor realized something very important during his studies of cardinality of sets: you can come up with a way to count natural, integer and rational numbers. This led him to conclude that those sets are the same size (because we can map them to each other with a one-to-one function), which seems strange, but cardinality isn’t what this post is about. The important thing is that Cantor showed you can’t count the real numbers. Though not his original proof, his <a href="https://en.wikipedia.org/wiki/Cantor%27s_diagonal_argument">diagnolisation argument</a> is a very famous way showing this fact. So, if we can’t count the things, how do we know what they are. There are two ways to do this: axiomatization and construction.</p>
+<h3 id="axiomatization">Axiomatization</h3>
+<p>An aoximatic approach defines the real numbers by a list of rules they must follow. Here are the four axioms used in modernity:</p>
+<ul>
+  <li><script type="math/tex">\mathbb{R}</script> forms a field with the operations <script type="math/tex">\times</script> and <script type="math/tex">+</script>.</li>
+</ul>
+
+<p>If you don’t know what a field is, I’ll give you a definition in a nutshell. Basically, it’s a set that contains at least a unity, and a zero. A unity has the properties of 1 in the real numbers, and the zero has the properties of 0. Also, addition and multiplication must return an element in <script type="math/tex">\mathbb{R}</script> when performed using two elements of <script type="math/tex">\mathbb{R}</script>, and work the same way they do normally (associativity, commutativity, and distributivity). And, there has to be additive and multiplicative inverses in <script type="math/tex">\mathbb{R}</script> for every element of <script type="math/tex">\mathbb{R}</script>. So, if you pick any real number, there’s another number you can add to it that will give you zero (additive inverse). You can also find a number you can multiply by to get one (unless the number you picked was zero).</p>
+<ul>
+  <li><script type="math/tex">\mathbb{R}</script> is a completely ordered set.</li>
+</ul>
+
+<p>This says that <script type="math/tex">\leq</script> works the way it normally does on <script type="math/tex">\mathbb{R}</script>. All the numbers have a specific order. This isn’t true for all sets of numbers (specifically, the set of complex numbers aren’t ordered).</p>
+<ul>
+  <li>The order of <script type="math/tex">\mathbb{R}</script> is preserved under <script type="math/tex">\times</script> and <script type="math/tex">+</script>.</li>
+</ul>
+
+<p>If we have <script type="math/tex">x, y, z\in\mathbb{R}</script> and <script type="math/tex">x\leq y</script>, then <script type="math/tex">x+z \leq y+z</script>.  Also, if <script type="math/tex">0 \leq x,y</script> then <script type="math/tex">0\leq x\times y</script>.</p>
+<ul>
+  <li>For every non-empty subset of <script type="math/tex">\mathbb{R}</script> bounded above, there is a least upper bound (known as the <a href="https://en.wikipedia.org/wiki/Infimum_and_supremum">Supremum</a>)</li>
+</ul>
+
+<p>This last one is the only one that isn’t really intuitive. Basically, it says that for any set of real numbers we make, we can pick a number that is bigger than everything in the set so that there isn’t another smaller number bigger than everything in the set. I’ll illustrate this with a few examples. Let’s look at the sets <script type="math/tex">\{1, 2, 3, 4, ...\}</script>, <script type="math/tex">\{1, 2, 3, 4,\}</script>, and <script type="math/tex">\{ 1, 1.9, 1.99,  1.999, ...\}</script>. The first set is equivalent to <script type="math/tex">\mathbb{N}</script>, and always keeps going up. This means it is not bounded above, so it doesn’t have a least upper bound. The next set contains only 1-4. It is bounded above by 4, since it is a finite set, and 4 is the highest number in the set. Since, there isn’t a number less than 4 that is greater than or equal to 4 (a funny but necessary statement), we know that 4 is the least upper bound. The third set is slightly more interesting. It increases infinitely, but we can see that it will never reach a value greater than 2. The problem is deciding whether 2 is the lowest possible number that is greater than everything in the set. Let’s say we pick a number <script type="math/tex">x</script>, slightly less than 2. But, if we keep moving to the right and picking numbers in our third set closer and closer to 2, we will eventually find a number <script type="math/tex">z</script>, such that <script type="math/tex">z > x</script>. Of course, we could pick a number bigger than <script type="math/tex">z</script> but less than 2, but we can just pick a larger number from the set. So, 2 must be the least upper bound. A fun fact,  this implies that the real numbers posses the Archimedean Property discussed above.</p>
+
+<p>Alfred Tarski created an equivalent <a href="https://en.wikipedia.org/wiki/Tarski%27s_axiomatization_of_the_reals">axiomatization</a> that is  technically simpler, but whose axioms aren’t as intuitive (in my personal opinion).</p>
+<h3 id="constructions">Constructions</h3>
+<p>There are many ways of constructing the real numbers, and people are always trying to come up with newer simpler ways of doing so. I’ll just go over the two most famous constructions: Cauchy Sequences and Dedekind Cuts.</p>
+
+<p>A sequence is a list of numbers <script type="math/tex">x_1, x_2, x_3, ...</script> . For example <script type="math/tex">12, 3, 23, ...</script>
+is a sequence (though not a particularly useful one). A Cauchy sequence is a sequence of rational numbers that converges to a single real number. How do we decide if it converges to a single real number you ask? The sequence has to meet a single stipulation: if we pick any number <script type="math/tex">\epsilon \in \mathbb{Q}</script> with <script type="math/tex">\epsilon > 0</script>, then we can find some point in our sequence where the difference between any two terms after that point will be less than the value we pick. In other words, if we have some Cauchy sequence <script type="math/tex">x</script>, there are integers <script type="math/tex">n</script> and <script type="math/tex">m</script> which are bigger than some integer <script type="math/tex">N > 0</script> where <script type="math/tex">% <![CDATA[
+|x_n - x_m| < \epsilon %]]></script>. It turns out that if we have two Cauchy sequences, we can add them and multiply them term by term, and the resulting sequence will converge to the sum or product of the values the two sequences converged to separately. Basically, sequences themselves possess the same properties as the real numbers. So, we can say that every real number is the pretty much the same as the Cauchy sequences that converge to it, and that all Cauchy sequences that converge to the same number are basically the same (we use an <a href="https://en.wikipedia.org/wiki/Construction_of_the_real_numbers#Construction_from_Cauchy_sequences">equivalence relation</a> for this). So, there, a definition of any real number.</p>
+
+<p>We can also use Dedekind cuts. A Dedekind cut is given by two sets <script type="math/tex">(A, B)</script>. <script type="math/tex">A</script> must have an upper bound, and <script type="math/tex">B</script> must have a lower bound. <script type="math/tex">A</script> cannot have a a greatest element (i.e. it is an infinite set with a least upper bound). We can make these two sets out of rational numbers, and use the pairs of sets to define real numbers. Let’s use this method to define <script type="math/tex">\sqrt{2}</script>  (the classic example). Let <script type="math/tex">A</script> be the set of all rational whose square is less than 2. So, if <script type="math/tex">x \in A</script> then <script type="math/tex">% <![CDATA[
+x^2 < 2 %]]></script>. Let <script type="math/tex">B</script> be any rational whose square is greater than 2. These two are sets for a Dedekind cut of <script type="math/tex">\sqrt{2}</script>, but this is not obvious. We have to show that there isn’t a greatest element in <script type="math/tex">A</script>, or that for every <script type="math/tex">x \in A</script>, there is some <script type="math/tex">y \in A</script> where <script type="math/tex">% <![CDATA[
+x < y %]]></script> and <script type="math/tex">% <![CDATA[
+y^2 < 2 %]]></script>. We could do this by finding some specific <script type="math/tex">y</script> in terms of <script type="math/tex">x</script> that satisfies our conditions to show that one exists. But, I’m not in the mood for analysis, so I’m just going to tell you that there must be a number that satisfies the conditions for <script type="math/tex">y</script>, because there is a rational number between any two rational numbers (or real numbers for that matter). So, this gives us a cut that leaves only <script type="math/tex">\sqrt{2}</script> between sets <script type="math/tex">A</script> and <script type="math/tex">B</script>. The nice thing about Dedekind cuts, as opposed to Cauchy sequences, is that there is only one unique pair of sets that we can use to define each real number, while there are infinitely many Cauchy sequences.</p>
+
+<p>A final note about constructions. There are finitely many letters and symbols that can be used in mathematics. Thus, there are countably many definitions we can construct for real numbers, even though the real numbers themselves aren’t countable. This makes the counstruction method of defining real numbers slightly weaker than using axioms. That’s fine, because constructions are really only useful to give us a clear idea of what a real number “is”, anyway.</p>
+
+
+</div>
+    <div class="border-2 border-teal-500 w-full text-center text-xl text-center mt-4 font-mono font-semibold">
+	Bradley Post 2019
+</div>
+
+  </body>
+</html>
+  </head>
+  <body>
+    <div class="w-4/5 mx-auto">
+	<h1 class="text-center text-4xl font-semibold">Real Numbers</h1>
+		<p class="text-base my-4">
+			Written 03 May 2018
+			
+			
+		    in <a class="hover:text-gray-500 bg-blue-700 font-semibold rounded p-1" href="/topics/math.html">Math</a>
+		  	
+		</p>
+<p>This is a question that may not have occurred to you. What is a real number? Can we explicitly define all of them?  It’s harder than it sounds. It took us until about 100 years ago to really pin down what they are, and how to construct them. Here’s a brief synopsis of their history, and some modern definitions of the original uncountable set.</p>
+
+<h2 id="naive-definitions">Naive Definitions</h2>
+
+<p>Humans have been using numbers since the inception of civilization. The Egyptians were among the first to start making use of fractions. Then, Indian mathematicians found some numbers that couldn’t be represented by fractions. They left it there. The Greeks tried to clearly explained what irrationality was, and why it was. Euclid tried to give a definition of what he called “magnitudes” in Book V of <em>The</em> <em>Elements</em>, but it doesn’t make a lot of sense by modern standards. Basically, he described them as ratios of other magnitudes, but he doesn’t really give an axiomatic definition for magnitudes in the first place. The most important piece of this whole magnitude thing is probably def. 4, which says, “Magnitudes are said to have a ratio to one another which can, when multiplied, exceed one another.” Basically, for every two numbers, where the second is bigger than the first, there is a third number we can multiply by the first so that their product will be greater than the second number. It doesn’t matter how big the second number is. We now call this the Archimedean Property, because Otto Stolz decided that’s what he wanted to call it (he had his reasons). What this really means is that <a href="https://en.wikipedia.org/wiki/Infinitesimal">infinitesimals</a> are not numbers. As an aside, Euclid did conceive of an equivalence relation between ratios, and defined most of our modern axioms for <a href="https://en.wikipedia.org/wiki/Equivalence_relation">equivalence relations</a> (he didn’t explicitly state symmetry).</p>
+
+<p>For about 2000 years, this is as far as we really cared to go on the topic. René Descartes (of Cartesian plane fame) was the first to define the set of real numbers. He called them “real”, as opposed to the “imaginary”, numbers that are multiples of <script type="math/tex">\sqrt{-1}</script> which he decided were fine to use now, given the right context (It took mathematicians a long time to widely accept imaginary numbers. A lot of people thought Descartes was crazy for using them). This definition of real numbers didn’t really bother anyone, because they were busy freaking out about this whole new set of other numbers. Simon Stevin popularized decimal notation in the west, and posited that rational and irrational numbers could be grouped together since they could both be represented by infinite decimals. So, at this point, it was just whatever digits you throw together, that’s a real number. Equivalently, any value you can get from a number line (at least I think these two things are equivalent).</p>
+
+<p>Things didn’t get serious until the 19th century, when mathematicians got really into rigor and having a clear axiomatic basis for everything.</p>
+
+<h2 id="transcendental-numbers">Transcendental Numbers</h2>
+<p>I’m going to take a quick detour from real number definitions to talk about <em>transcendental</em> numbers. We can split the real numbers into two groups, besides the classic rational and irrational distinction. These are <em>algebraic</em> and <em>transcendental</em> numbers. Algebraic numbers are solutions to polynomials with rational coefficients.  For example, <script type="math/tex">\sqrt{2}</script> is a solution for the polynomial <script type="math/tex">f(x) = x^2 - 2</script>. This covers all radicals (but not necessarily all <a href="https://en.wikipedia.org/wiki/Linear_combination">linear combinations</a> of radicals). But, there are some irrational numbers we have proven not to be solutions  to polynomials. These are transcendental.  These include π, <em>e</em>, and infinitely many others. Proving that a number is transcendental is non-trivial, and it took until 1794 for Adrien-Marie Legendre to prove that π was not the square root of a rational number. Evaristé Galois came up with some bonkers math in 1832 that helped us figure out what polynomials could be solved with standard arithmetic. This became the basis for the study of transcendental numbers. Then in 1840, Joseph Liouville showed <script type="math/tex">e</script> and <script type="math/tex">e^2</script> were not roots of a quadratic. He also showed transcendental numbers existed (we weren’t sure before because we had only showed these numbers couldn’t be solutions to specific sets of rational polynomials, and not all of them). Charles Hermite showed that <em>e</em> was transcendental in 1873, and then Ferdinand von Lindemann showed π  was transcendental in 1882. This new information about how numbers were constructed had a huge impact on how mathematicians went about defining real numbers.</p>
+<h2 id="rigorous-definitions-of-real-numbers">Rigorous Definitions of Real Numbers</h2>
+<p>Georg Cantor realized something very important during his studies of cardinality of sets: you can come up with a way to count natural, integer and rational numbers. This led him to conclude that those sets are the same size (because we can map them to each other with a one-to-one function), which seems strange, but cardinality isn’t what this post is about. The important thing is that Cantor showed you can’t count the real numbers. Though not his original proof, his <a href="https://en.wikipedia.org/wiki/Cantor%27s_diagonal_argument">diagnolisation argument</a> is a very famous way showing this fact. So, if we can’t count the things, how do we know what they are. There are two ways to do this: axiomatization and construction.</p>
+<h3 id="axiomatization">Axiomatization</h3>
+<p>An aoximatic approach defines the real numbers by a list of rules they must follow. Here are the four axioms used in modernity:</p>
+<ul>
+  <li><script type="math/tex">\mathbb{R}</script> forms a field with the operations <script type="math/tex">\times</script> and <script type="math/tex">+</script>.</li>
+</ul>
+
+<p>If you don’t know what a field is, I’ll give you a definition in a nutshell. Basically, it’s a set that contains at least a unity, and a zero. A unity has the properties of 1 in the real numbers, and the zero has the properties of 0. Also, addition and multiplication must return an element in <script type="math/tex">\mathbb{R}</script> when performed using two elements of <script type="math/tex">\mathbb{R}</script>, and work the same way they do normally (associativity, commutativity, and distributivity). And, there has to be additive and multiplicative inverses in <script type="math/tex">\mathbb{R}</script> for every element of <script type="math/tex">\mathbb{R}</script>. So, if you pick any real number, there’s another number you can add to it that will give you zero (additive inverse). You can also find a number you can multiply by to get one (unless the number you picked was zero).</p>
+<ul>
+  <li><script type="math/tex">\mathbb{R}</script> is a completely ordered set.</li>
+</ul>
+
+<p>This says that <script type="math/tex">\leq</script> works the way it normally does on <script type="math/tex">\mathbb{R}</script>. All the numbers have a specific order. This isn’t true for all sets of numbers (specifically, the set of complex numbers aren’t ordered).</p>
+<ul>
+  <li>The order of <script type="math/tex">\mathbb{R}</script> is preserved under <script type="math/tex">\times</script> and <script type="math/tex">+</script>.</li>
+</ul>
+
+<p>If we have <script type="math/tex">x, y, z\in\mathbb{R}</script> and <script type="math/tex">x\leq y</script>, then <script type="math/tex">x+z \leq y+z</script>.  Also, if <script type="math/tex">0 \leq x,y</script> then <script type="math/tex">0\leq x\times y</script>.</p>
+<ul>
+  <li>For every non-empty subset of <script type="math/tex">\mathbb{R}</script> bounded above, there is a least upper bound (known as the <a href="https://en.wikipedia.org/wiki/Infimum_and_supremum">Supremum</a>)</li>
+</ul>
+
+<p>This last one is the only one that isn’t really intuitive. Basically, it says that for any set of real numbers we make, we can pick a number that is bigger than everything in the set so that there isn’t another smaller number bigger than everything in the set. I’ll illustrate this with a few examples. Let’s look at the sets <script type="math/tex">\{1, 2, 3, 4, ...\}</script>, <script type="math/tex">\{1, 2, 3, 4,\}</script>, and <script type="math/tex">\{ 1, 1.9, 1.99,  1.999, ...\}</script>. The first set is equivalent to <script type="math/tex">\mathbb{N}</script>, and always keeps going up. This means it is not bounded above, so it doesn’t have a least upper bound. The next set contains only 1-4. It is bounded above by 4, since it is a finite set, and 4 is the highest number in the set. Since, there isn’t a number less than 4 that is greater than or equal to 4 (a funny but necessary statement), we know that 4 is the least upper bound. The third set is slightly more interesting. It increases infinitely, but we can see that it will never reach a value greater than 2. The problem is deciding whether 2 is the lowest possible number that is greater than everything in the set. Let’s say we pick a number <script type="math/tex">x</script>, slightly less than 2. But, if we keep moving to the right and picking numbers in our third set closer and closer to 2, we will eventually find a number <script type="math/tex">z</script>, such that <script type="math/tex">z > x</script>. Of course, we could pick a number bigger than <script type="math/tex">z</script> but less than 2, but we can just pick a larger number from the set. So, 2 must be the least upper bound. A fun fact,  this implies that the real numbers posses the Archimedean Property discussed above.</p>
+
+<p>Alfred Tarski created an equivalent <a href="https://en.wikipedia.org/wiki/Tarski%27s_axiomatization_of_the_reals">axiomatization</a> that is  technically simpler, but whose axioms aren’t as intuitive (in my personal opinion).</p>
+<h3 id="constructions">Constructions</h3>
+<p>There are many ways of constructing the real numbers, and people are always trying to come up with newer simpler ways of doing so. I’ll just go over the two most famous constructions: Cauchy Sequences and Dedekind Cuts.</p>
+
+<p>A sequence is a list of numbers <script type="math/tex">x_1, x_2, x_3, ...</script> . For example <script type="math/tex">12, 3, 23, ...</script>
+is a sequence (though not a particularly useful one). A Cauchy sequence is a sequence of rational numbers that converges to a single real number. How do we decide if it converges to a single real number you ask? The sequence has to meet a single stipulation: if we pick any number <script type="math/tex">\epsilon \in \mathbb{Q}</script> with <script type="math/tex">\epsilon > 0</script>, then we can find some point in our sequence where the difference between any two terms after that point will be less than the value we pick. In other words, if we have some Cauchy sequence <script type="math/tex">x</script>, there are integers <script type="math/tex">n</script> and <script type="math/tex">m</script> which are bigger than some integer <script type="math/tex">N > 0</script> where <script type="math/tex">% <![CDATA[
+|x_n - x_m| < \epsilon %]]></script>. It turns out that if we have two Cauchy sequences, we can add them and multiply them term by term, and the resulting sequence will converge to the sum or product of the values the two sequences converged to separately. Basically, sequences themselves possess the same properties as the real numbers. So, we can say that every real number is the pretty much the same as the Cauchy sequences that converge to it, and that all Cauchy sequences that converge to the same number are basically the same (we use an <a href="https://en.wikipedia.org/wiki/Construction_of_the_real_numbers#Construction_from_Cauchy_sequences">equivalence relation</a> for this). So, there, a definition of any real number.</p>
+
+<p>We can also use Dedekind cuts. A Dedekind cut is given by two sets <script type="math/tex">(A, B)</script>. <script type="math/tex">A</script> must have an upper bound, and <script type="math/tex">B</script> must have a lower bound. <script type="math/tex">A</script> cannot have a a greatest element (i.e. it is an infinite set with a least upper bound). We can make these two sets out of rational numbers, and use the pairs of sets to define real numbers. Let’s use this method to define <script type="math/tex">\sqrt{2}</script>  (the classic example). Let <script type="math/tex">A</script> be the set of all rational whose square is less than 2. So, if <script type="math/tex">x \in A</script> then <script type="math/tex">% <![CDATA[
+x^2 < 2 %]]></script>. Let <script type="math/tex">B</script> be any rational whose square is greater than 2. These two are sets for a Dedekind cut of <script type="math/tex">\sqrt{2}</script>, but this is not obvious. We have to show that there isn’t a greatest element in <script type="math/tex">A</script>, or that for every <script type="math/tex">x \in A</script>, there is some <script type="math/tex">y \in A</script> where <script type="math/tex">% <![CDATA[
+x < y %]]></script> and <script type="math/tex">% <![CDATA[
+y^2 < 2 %]]></script>. We could do this by finding some specific <script type="math/tex">y</script> in terms of <script type="math/tex">x</script> that satisfies our conditions to show that one exists. But, I’m not in the mood for analysis, so I’m just going to tell you that there must be a number that satisfies the conditions for <script type="math/tex">y</script>, because there is a rational number between any two rational numbers (or real numbers for that matter). So, this gives us a cut that leaves only <script type="math/tex">\sqrt{2}</script> between sets <script type="math/tex">A</script> and <script type="math/tex">B</script>. The nice thing about Dedekind cuts, as opposed to Cauchy sequences, is that there is only one unique pair of sets that we can use to define each real number, while there are infinitely many Cauchy sequences.</p>
+
+<p>A final note about constructions. There are finitely many letters and symbols that can be used in mathematics. Thus, there are countably many definitions we can construct for real numbers, even though the real numbers themselves aren’t countable. This makes the counstruction method of defining real numbers slightly weaker than using axioms. That’s fine, because constructions are really only useful to give us a clear idea of what a real number “is”, anyway.</p>
+
+
+</div>
+  </body>
+</html>
+

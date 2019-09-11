@@ -1,0 +1,14 @@
+---
+layout: default
+---
+<div class="w-4/5 mx-auto">
+	<h1 class="text-center text-4xl font-semibold">{{ page.title }}</h1>
+		<p class="text-base my-4">
+			Written {{ page.date | date_to_string }}
+			{% assign topic = site.topics | where: 'name', page.topic | first %}
+			{% if topic %}
+		    in <a class="hover:text-gray-500 bg-blue-700 font-semibold rounded p-1" href="{{ topic.url }}">{{ topic.name }}</a>
+		  	{% endif %}
+		</p>
+{{ content }}
+</div>

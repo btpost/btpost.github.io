@@ -1,0 +1,23 @@
+---
+layout: default
+---
+<h1 class="text-4xl font-semibold text-center">{{ page.name }}</h1>
+<div class="mx-auto w-4/5">
+	<ul>
+		{% assign filtered_posts = site.posts | where: 'topic', page.name %}
+		{% for post in filtered_posts %}
+			<div class="mt-4">
+				<a href="{{ post.url }}"><p class="text-2xl underline text-left hover:no-underline">{{post.title}}</p></a>
+
+				{{post.date | date_to_string}} 
+
+				{% if post.topic %}
+			  	in <a class="hover:text-gray-500 bg-blue-700 font-semibold rounded p-1" href="./{{ post.topic | downcase}}.html">{{ post.topic }}</a>
+			  	{% endif %}
+				
+				<p class="mt-2">{{ post.excerpt | strip_html | strip_newlines | truncate: 140 }}</p>
+		</div>
+		{% endfor %}
+	</ul>
+</div>
+<div class="h-8"></div>
