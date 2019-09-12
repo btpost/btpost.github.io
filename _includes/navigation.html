@@ -4,13 +4,14 @@
 		<nav>
 			<ul class="flex">
 		  		{% for item in site.data.navigation %}
-		  		<div class="bg-blue-900 text-teal-500 border-2 border-teal-500 w-1/6 text-xl text-center font-mono font-semibold hover:bg-teal-500 hover:text-blue-900">
-			  		<a href="{{ item.link }}" {% if page.url == item.link %}class="current"{% endif %}>
+		  		<a href="{{ item.link }}" {% if page.url == item.link %}class="current"{% endif %}>
+		  			<div class="bg-blue-900 text-teal-500 border-2 border-teal-500 w-1/6 text-xl text-center font-mono font-semibold hover:bg-teal-500 hover:text-blue-900">
+			  		
 				  		<li class="my-3">
 				    		{{ item.name }}
 				    	</li>
-			    	</a>
-		   		</div>
+		   			</div>
+		   		</a>
 		  		{% endfor %}
 		  		<div class="flex border-teal-500 border-t-2 border-b-2 border-r-2 border-l-2 w-full inline-block justify-end">
 			  		<a class="my-auto ml-4" href="https://www.linkedin.com/in/bradley-post-346915181"><img  src="/assets/images/linkedin-128.png" width="50" height="50" /></a>
