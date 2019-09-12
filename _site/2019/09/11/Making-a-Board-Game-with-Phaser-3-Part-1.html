@@ -1,0 +1,536 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Making a Board Game with Phaser 3 - Part 1</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: [
+      "MathMenu.js",
+      "MathZoom.js",
+      "AssistiveMML.js",
+      "a11y/accessibility-menu.js"
+    ],
+    jax: ["input/TeX", "output/CommonHTML"],
+    TeX: {
+      extensions: [
+        "AMSmath.js",
+        "AMSsymbols.js",
+        "noErrors.js",
+        "noUndefined.js",
+      ]
+    }
+  });
+</script>
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" />
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Making a Board Game with Phaser 3 - Part 1</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Making a Board Game with Phaser 3 - Part 1" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Today, I finished a playable demo of the board game Quoridor in JavaScript using the game development framework Phaser 3. Here’s the Wikipedia page for Quoridor if you’ve never heard of it. So far, the game can be played with two players locally sharing a mouse. I’m hoping to add more features to the game in the future, which is why this post is part 1." />
+<meta property="og:description" content="Today, I finished a playable demo of the board game Quoridor in JavaScript using the game development framework Phaser 3. Here’s the Wikipedia page for Quoridor if you’ve never heard of it. So far, the game can be played with two players locally sharing a mouse. I’m hoping to add more features to the game in the future, which is why this post is part 1." />
+<link rel="canonical" href="http://localhost:4000/2019/09/11/Making-a-Board-Game-with-Phaser-3-Part-1.html" />
+<meta property="og:url" content="http://localhost:4000/2019/09/11/Making-a-Board-Game-with-Phaser-3-Part-1.html" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-09-11T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Making a Board Game with Phaser 3 - Part 1","url":"http://localhost:4000/2019/09/11/Making-a-Board-Game-with-Phaser-3-Part-1.html","dateModified":"2019-09-11T00:00:00-05:00","datePublished":"2019-09-11T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2019/09/11/Making-a-Board-Game-with-Phaser-3-Part-1.html"},"description":"Today, I finished a playable demo of the board game Quoridor in JavaScript using the game development framework Phaser 3. Here’s the Wikipedia page for Quoridor if you’ve never heard of it. So far, the game can be played with two players locally sharing a mouse. I’m hoping to add more features to the game in the future, which is why this post is part 1.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+  <body class="bg-blue-900 text-teal-400 font-normal font-mono">
+    <div>
+	<h1 class="text-4xl font-mono text-teal-500 ml-2 inline"> Brad's Blog </h1>
+	<p class="text-xl font-mono ml-2 inline">Computers and Math</p>
+		<nav>
+			<ul class="flex">
+		  		
+		  		<div class="bg-blue-900 text-teal-500 border-2 border-teal-500 w-1/6 text-xl text-center font-mono font-semibold hover:bg-teal-500 hover:text-blue-900">
+			  		<a href="/" >
+				  		<li class="my-3">
+				    		Blog
+				    	</li>
+			    	</a>
+		   		</div>
+		  		
+		  		<div class="bg-blue-900 text-teal-500 border-2 border-teal-500 w-1/6 text-xl text-center font-mono font-semibold hover:bg-teal-500 hover:text-blue-900">
+			  		<a href="/about.html" >
+				  		<li class="my-3">
+				    		About
+				    	</li>
+			    	</a>
+		   		</div>
+		  		
+		  		<div class="bg-blue-900 text-teal-500 border-2 border-teal-500 w-1/6 text-xl text-center font-mono font-semibold hover:bg-teal-500 hover:text-blue-900">
+			  		<a href="/topics.html" >
+				  		<li class="my-3">
+				    		Topics
+				    	</li>
+			    	</a>
+		   		</div>
+		  		
+		  		<div class="flex border-teal-500 border-t-2 border-b-2 border-r-2 border-l-2 w-full inline-block justify-end">
+			  		<a class="my-auto ml-4" href="https://www.linkedin.com/in/bradley-post-346915181"><img  src="/assets/images/linkedin-128.png" width="50" height="50" /></a>
+			  		<a class="my-auto ml-4 mr-16" href="https://github.com/btpost/"><img  src="/assets/images/GitHub-Mark-64px.png" width="50" height="50" /></a>
+			  </div>
+			  
+		  	</ul>
+		</nav>
+</div>
+    <div class="w-4/5 mx-auto">
+	<h1 class="text-center text-4xl font-semibold">Making a Board Game with Phaser 3 - Part 1</h1>
+		<p class="text-base my-4">
+			Written 11 Sep 2019
+			
+			
+		    in <a class="hover:text-gray-500 bg-blue-700 font-semibold rounded p-1" href="/topics/programming.html">Programming</a>
+		  	
+		</p>
+<p>Today, I finished a playable demo of the board game Quoridor in JavaScript using the game development framework Phaser 3. Here’s the <strong><a href="https://en.wikipedia.org/wiki/Quoridor">Wikipedia page for Quoridor</a></strong> if you’ve never heard of it. So far, the game can be played with two players locally sharing a mouse. I’m hoping to add more features to the game in the future, which is why this post is part 1.</p>
+
+<p>The purpose of this post is to explain what I’ve done, and point out some places I could improve my code so far. I think it’d be useful for someone else trying to build a boardgame with Phaser 3, since I couldn’t find any examples. What I’ve done is a bit of a hacky way to do it, but it works well. You can find the full project on my GitHub – here’s a <strong><a href="https://github.com/btpost/Quoridor">link</a></strong>. To run it yourself, you’re going to have to set up a server and use it in browser. I just used Python’s SimpleHTTPServer, but there are a wide variety of options. See the Phaser 3 Docs for a <strong><a href="https://phaser.io/tutorials/getting-started-phaser3">set up guide</a></strong> if you’re unsure.</p>
+
+<p>Now, down to business. I’ve got my code open, and I’m just going to walk my way down index.html and explain the relevant parts as they come up. First, we’ve got the head tag.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!doctype html&gt;</span> 
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span> 
+<span class="nt">&lt;head&gt;</span> 
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Quoridor<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"module"</span> <span class="na">src=</span><span class="s">"js/square.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"module"</span> <span class="na">src=</span><span class="s">"js/board.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"module"</span> <span class="na">src=</span><span class="s">"js/pawn.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"module"</span> <span class="na">src=</span><span class="s">"js/player.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;style </span><span class="na">type=</span><span class="s">"text/css"</span><span class="nt">&gt;</span>
+        <span class="nt">body</span> <span class="p">{</span>
+            <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span></code></pre></figure>
+
+<p>Here I’m getting the Phaser 3 library with the first script tag. If you want to make a Phaser 3 game, you’ll need that tag in the head. The other 4 script tags are “classes” (technically normal JavaScript objects, classes are just syntactic sugar) for use in the project. In a (semi-successful) attempt to improve readability, I put them into their own separate files and imported them. More on that later. Finally, you can see me messing with the css. Hopefully, this is straight forward.</p>
+
+<p>Next, we have some imports, corresponding to the script tags above. Then, we get to the config.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">width</span><span class="p">:</span> <span class="mi">630</span><span class="p">,</span>
+    <span class="na">height</span><span class="p">:</span> <span class="mi">630</span><span class="p">,</span>
+    <span class="na">type</span><span class="p">:</span> <span class="nx">Phaser</span><span class="p">.</span><span class="nx">AUTO</span><span class="p">,</span>
+    <span class="na">parent</span><span class="p">:</span> <span class="dl">'</span><span class="s1">phaser-example</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">scene</span><span class="p">:</span> <span class="p">{</span>
+    	<span class="na">preload</span><span class="p">:</span> <span class="nx">preload</span><span class="p">,</span>
+        <span class="na">create</span><span class="p">:</span> <span class="nx">create</span><span class="p">,</span>
+        <span class="na">update</span><span class="p">:</span> <span class="nx">update</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>Phaser 3 uses the config to decide how to set up the game window and render the visual/audio components. <em>Width</em> and <em>height</em> are the size of the game in the browser. <em>Type</em> allows you to change how the video and audio is rendered. <em>Parent</em> allows you to inherit another config, so I inherited the config for the phaser examples posted in their docs. <em>Scene</em> allows you to set a preload function, a create function, and an update function. Since this project only uses one scene so far, I’ve named the functions preload, create, and update, but I could set the fields in the scene object to any function I write in the code below. I’ll go over each function as I get to them.</p>
+
+<p>Next, I defined some globals to use throughout the program. These are all objects that are used in more than one of the functions below, and are used to keep track of the state of the game. I’ll explain them as they come up.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">game</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phaser</span><span class="p">.</span><span class="nx">Game</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">wall</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">pawn1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">pawn2</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">turn</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">wall_mode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">player_num</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span></code></pre></figure>
+
+<p>Moving on to the preload function. The preload function is mostly used to load assets into your game. I load in three images. It’s a pretty simple game.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">preload</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">load</span><span class="p">.</span><span class="nx">image</span><span class="p">(</span><span class="dl">'</span><span class="s1">square</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">assets/board_square.png</span><span class="dl">'</span><span class="p">);</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">load</span><span class="p">.</span><span class="nx">image</span><span class="p">(</span><span class="dl">'</span><span class="s1">pawn</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">assets/pawn.png</span><span class="dl">'</span><span class="p">);</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">load</span><span class="p">.</span><span class="nx">image</span><span class="p">(</span><span class="dl">'</span><span class="s1">wall</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">assets/wall.png</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The create function is used to initialize the games objects and layout the general logical flow of the game. This is the bulk of the code in the index, so I’m going to go through it in chunks.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">create</span> <span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// Initialize mouse input, and turn of right click menu</span>
+  	<span class="kd">var</span> <span class="nx">pointer</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">activePointer</span><span class="p">;</span>
+  	<span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">mouse</span><span class="p">.</span><span class="nx">disableContextMenu</span><span class="p">();</span>
+    
+    <span class="c1">// Initialize the game board</span>
+   	<span class="kd">var</span> <span class="nx">board</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Board</span><span class="p">({</span><span class="na">scene</span><span class="p">:</span> <span class="k">this</span><span class="p">});</span>
+   	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">board</span><span class="p">);</span>
+    
+    <span class="c1">// Initialize pawns. Turn player 2's pawn red</span>
+    <span class="kd">var</span> <span class="nx">pawn1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Pawn</span><span class="p">({</span><span class="na">scene</span><span class="p">:</span> <span class="k">this</span><span class="p">,</span> <span class="na">x</span><span class="p">:</span> <span class="mi">315</span><span class="p">,</span> <span class="na">y</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span> <span class="na">board</span><span class="p">:</span> <span class="nx">board</span><span class="p">});</span>
+    <span class="kd">var</span> <span class="nx">pawn2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Pawn</span><span class="p">({</span><span class="na">scene</span><span class="p">:</span> <span class="k">this</span><span class="p">,</span> <span class="na">x</span><span class="p">:</span> <span class="mi">315</span><span class="p">,</span> <span class="na">y</span><span class="p">:</span><span class="mi">595</span><span class="p">,</span> <span class="na">board</span><span class="p">:</span> <span class="nx">board</span><span class="p">});</span>
+    <span class="nx">pawn2</span><span class="p">.</span><span class="nx">tint</span> <span class="o">=</span> <span class="mh">0xaa0000</span><span class="p">;</span>
+
+    <span class="c1">// Initialize players</span>
+	<span class="kd">var</span> <span class="nx">player1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Player</span><span class="p">({</span><span class="na">board</span><span class="p">:</span> <span class="nx">board</span><span class="p">,</span> <span class="na">pawn</span><span class="p">:</span> <span class="nx">pawn1</span><span class="p">,</span> <span class="na">wall_count</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="na">cpu</span><span class="p">:</span> <span class="kc">false</span><span class="p">});</span>
+	<span class="kd">var</span> <span class="nx">player2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Player</span><span class="p">({</span><span class="na">board</span><span class="p">:</span> <span class="nx">board</span><span class="p">,</span> <span class="na">pawn</span><span class="p">:</span> <span class="nx">pawn2</span><span class="p">,</span> <span class="na">wall_count</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="na">cpu</span><span class="p">:</span> <span class="kc">false</span><span class="p">});</span>
+    <span class="kd">var</span> <span class="nx">players</span> <span class="o">=</span> <span class="p">[</span><span class="nx">player1</span><span class="p">,</span> <span class="nx">player2</span><span class="p">]</span>
+
+    <span class="c1">// Create a local variable for the current scene to pass into the event handler below</span>
+    <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span></code></pre></figure>
+
+<p>As you can see by the comments, this is mostly initializing the different objects for use in the game. After I set up the mouse input, you can see instances of three of the classes that I made for this project. I’ll start by explaining the class that isn’t shown here, <em>Square</em>, since it’s an important part of the <em>Board</em> and <em>Pawn</em> class.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">Square</span> <span class="kd">extends</span> <span class="nx">Phaser</span><span class="p">.</span><span class="nx">GameObjects</span><span class="p">.</span><span class="nx">Image</span> <span class="p">{</span>
+
+	<span class="kd">constructor</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">super</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">scene</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span> <span class="dl">'</span><span class="s1">square</span><span class="dl">'</span><span class="p">);</span>
+		<span class="c1">// Added fields for the array coordinates of the square</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">arr_x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">x</span><span class="o">/</span><span class="mi">70</span><span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">arr_y</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">y</span><span class="o">/</span><span class="mi">70</span><span class="p">);</span>
+		<span class="c1">// Add array for keeping track of which sides of the square are blocked</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">blocked_sides</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="nx">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">has_pawn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+
+		<span class="c1">// Add the square to the screen</span>
+		<span class="nx">config</span><span class="p">.</span><span class="nx">scene</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">existing</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+
+
+	<span class="p">}</span></code></pre></figure>
+
+<p>The square class is an extension of Phaser 3’s image class, and it is what I used to represent each square on the board. By looking at the constructor, you can see that I’ve added a few extra instance variables to keep track of where each square is in the <em>Board</em> array. Each square is 70x70 px, so in order to give it the correct array position, I divide it’s on screen position by 70 and then round down (Phaser measures position from the center, so the floor call is necessary). I set up an array to keep track of what sides of the square are blocked by walls that have been played, and I gave each square a boolean to keep track of whether a pawn is on it or not. The last line adds the square into the scene.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">	<span class="c1">// Methods for blocking each side of the square</span>
+	<span class="nx">block_up</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">blocked_sides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nx">block_down</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">blocked_sides</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nx">block_left</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">blocked_sides</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nx">block_right</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">blocked_sides</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="kd">get</span> <span class="nx">block_array</span> <span class="p">(){</span>
+		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">blocked_sides</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="nx">blocked</span> <span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">blocked_sides</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+	<span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Square</span><span class="p">;</span></code></pre></figure>
+
+<p>The methods for square are pretty straightforward. They’re basically just getters and setters, outside of <em>blocked</em>, which will check a particular index in the blocked_sides array to see if there’s a wall. A big thing I think I could improve here is giving each square it’s own event listener for being clicked. Right now, the event handler for clicking on screen finds the square that was clicked by using the position of the mouse, which can lead to a disconnect between what’s on screen and what’s being done in the code. It’d also make the code a bit more readable by getting rid of all the Math.floor(/70)’s.</p>
+
+<p>Now, that we’re acquainted with <em>Square</em>, we can take a look at <em>Pawn</em>.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">Pawn</span> <span class="kd">extends</span> <span class="nx">Phaser</span><span class="p">.</span><span class="nx">GameObjects</span><span class="p">.</span><span class="nx">Sprite</span> <span class="p">{</span>
+	<span class="kd">constructor</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">super</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">scene</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span> <span class="dl">'</span><span class="s1">pawn</span><span class="dl">'</span><span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">arr_x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">x</span><span class="o">/</span><span class="mi">70</span><span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">arr_y</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">y</span><span class="o">/</span><span class="mi">70</span><span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">square</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">board</span><span class="p">.</span><span class="nx">get_square</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">arr_x</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">arr_y</span><span class="p">);</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">has_pawn</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">board</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">board</span><span class="p">;</span>
+
+		<span class="nx">config</span><span class="p">.</span><span class="nx">scene</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">existing</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+	<span class="p">}</span></code></pre></figure>
+
+<p>Pawn extends the sprite object, because I have a feeling I might need some of the sprite functionality in the future, but for now it’s not doing anything an image couldn’t do. Again, it has instance variables for its array position, as well as a square that it’s on, and a board it’s on. The rest of the class is a single method: <em>move</em>. The comments here do a pretty good job explaining what’s going on.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">	<span class="c1">// Check to see if a valid space was clicked. If so, move the pawn to the space.</span>
+	<span class="nx">move</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+		<span class="c1">// Convert the input coords to array coords</span>
+		<span class="kd">var</span> <span class="nx">arr_x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">x</span><span class="p">)</span><span class="o">/</span><span class="mi">70</span><span class="p">);</span>
+		<span class="kd">var</span> <span class="nx">arr_y</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">y</span><span class="p">)</span><span class="o">/</span><span class="mi">70</span><span class="p">);</span>
+		<span class="kd">var</span> <span class="nx">new_square</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">board</span><span class="p">.</span><span class="nx">get_square</span><span class="p">(</span><span class="nx">arr_x</span><span class="p">,</span> <span class="nx">arr_y</span><span class="p">);</span>
+
+		<span class="c1">// Check to see if the square clicked is 1 space up, </span>
+		<span class="c1">// down, left, or right, and if there's a pawn there.</span>
+		<span class="k">if</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">arr_x</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">arr_x</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">arr_y</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">arr_y</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> 
+		<span class="o">&amp;&amp;</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">arr_x</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">arr_x</span><span class="p">)</span><span class="o">+</span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">arr_y</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">arr_y</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> 
+		<span class="o">&amp;&amp;</span> <span class="o">!</span><span class="p">(</span><span class="nx">new_square</span><span class="p">.</span><span class="nx">has_pawn</span><span class="p">))</span>
+		<span class="p">{</span>
+			<span class="c1">// Check to see if the current square is block in the direction of the new square</span>
+			<span class="c1">// if it isn't blocked, set the new square to this pawn's current square</span>
+
+			<span class="c1">// Checking for moving up</span>
+			<span class="k">if</span><span class="p">(</span><span class="nx">arr_y</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">arr_y</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">blocked</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>
+				<span class="p">{</span>	
+					<span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">has_pawn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">square</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">arr_x</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">arr_x</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">arr_y</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">arr_y</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">has_pawn</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+					<span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+			<span class="c1">// Checking for moving down</span>
+			<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">arr_y</span> <span class="o">&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">arr_y</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">blocked</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>
+				<span class="p">{</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">has_pawn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">square</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">has_pawn</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">arr_x</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">arr_x</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">arr_y</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">arr_y</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
+					<span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+			<span class="c1">// Checking for moving left</span>
+			<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">arr_x</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">arr_x</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">blocked</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
+				<span class="p">{</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">has_pawn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">square</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">has_pawn</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">arr_x</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">arr_x</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">arr_y</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">arr_y</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
+					<span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+			<span class="c1">// Checking for moving right</span>
+			<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">arr_x</span> <span class="o">&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">arr_x</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">blocked</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
+				<span class="p">{</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">has_pawn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">square</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">square</span><span class="p">.</span><span class="nx">has_pawn</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">arr_x</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">arr_x</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">arr_y</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">arr_y</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+					<span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">new_square</span><span class="p">.</span><span class="nx">y</span><span class="p">;</span>
+					<span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+				<span class="p">}</span>
+			<span class="p">}</span>	
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Pawn</span><span class="p">;</span></code></pre></figure>
+
+<p>At the bottom, I’m setting a default export, because JavaScript doesn’t like it when you have a module without a default export.</p>
+
+<p>On to <em>Board</em>.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">Board</span> <span class="p">{</span>
+	<span class="kd">constructor</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">squares</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">9</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="kd">var</span> <span class="nx">row</span> <span class="o">=</span> <span class="p">[];</span>
+			<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="mi">9</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="nx">row</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Square</span><span class="p">({</span><span class="na">scene</span><span class="p">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">scene</span><span class="p">,</span> <span class="na">x</span><span class="p">:</span> <span class="p">(</span><span class="nx">j</span><span class="o">*</span><span class="mi">70</span><span class="o">+</span><span class="mi">35</span><span class="p">),</span> <span class="na">y</span><span class="p">:</span> <span class="p">(</span><span class="nx">i</span><span class="o">*</span><span class="mi">70</span><span class="o">+</span><span class="mi">35</span><span class="p">)});</span>
+			<span class="p">}</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">squares</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">row</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="nx">get_square</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">squares</span><span class="p">[</span><span class="nx">y</span><span class="p">][</span><span class="nx">x</span><span class="p">];</span>
+	<span class="p">}</span></code></pre></figure>
+
+<p><em>Board</em> starts by creating a 9x9 array of squares. This is it’s only data. The get_square method is notable only because I have x and y flipped to make addressing the array more intuitive. In a 2d array, the first index tells you which row you’re on, which is equivalent to the y-value, and opposite the order of (x,y) coordinates. It makes things easier for me to read, at least.</p>
+
+<p>There are two big methods in the <em>Board</em> class, <em>check_wall_placement</em> and <em>add_wall</em>. I’ll go over each of them, starting with <em>check_wall_placement</em>. It takes in the (x,y) coordinates from a mouse click on the game board, and the <em>wall_mode</em> global variable. <em>Wall_mode</em> keeps track of whether a wall is being placed or not, and what orientation the wall should be. The first if statement is checking whether the location clicked is at the edge of the board, since it would be pointless to place a wall along the edges. Since walls are placed between the squares, each wall location has four squares adjacent to it. I make a variable for each of the arrays corresponding to the sides of these squares.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">	<span class="c1">// Takes in x,y coords from clicking the screen</span>
+	<span class="c1">// returns true if wall can be placed, false if it cannot be placed</span>
+	<span class="nx">check_wall_placement</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">wall_mode</span><span class="p">)</span> <span class="p">{</span>
+		<span class="c1">// For each square, the top is in index 0, bottom 1, left 2, right 3</span>
+
+		<span class="nx">x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">x</span><span class="o">/</span><span class="mi">70</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+		<span class="nx">y</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">y</span><span class="o">/</span><span class="mi">70</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+		<span class="k">if</span><span class="p">(</span><span class="nx">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">x</span> <span class="o">&gt;</span> <span class="mi">8</span> <span class="o">||</span> <span class="nx">y</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+		<span class="p">}</span>
+
+		<span class="kd">var</span> <span class="nx">t_left</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">squares</span><span class="p">[</span><span class="nx">y</span><span class="p">][</span><span class="nx">x</span><span class="p">].</span><span class="nx">block_array</span><span class="p">;</span>
+		<span class="kd">var</span> <span class="nx">t_right</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">squares</span><span class="p">[</span><span class="nx">y</span><span class="p">][</span><span class="nx">x</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="nx">block_array</span><span class="p">;</span>
+		<span class="kd">var</span> <span class="nx">b_left</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">squares</span><span class="p">[</span><span class="nx">y</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="nx">x</span><span class="p">].</span><span class="nx">block_array</span><span class="p">;</span>
+		<span class="kd">var</span> <span class="nx">b_right</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">squares</span><span class="p">[</span><span class="nx">y</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="nx">x</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="nx">block_array</span><span class="p">;</span>
+
+		<span class="k">if</span><span class="p">(</span><span class="nx">wall_mode</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">if</span><span class="p">(</span><span class="nx">t_left</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">t_right</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">b_left</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">b_right</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+			<span class="p">}</span>
+
+			<span class="k">if</span><span class="p">((</span><span class="nx">t_left</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">t_right</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">b_left</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">b_right</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">))</span>
+			<span class="p">{</span>
+				<span class="k">return</span> <span class="kc">false</span>
+			<span class="p">}</span>
+
+			<span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">wall_mode</span> <span class="o">===</span> <span class="mi">2</span><span class="p">)</span>
+		<span class="p">{</span>
+			
+			<span class="k">if</span><span class="p">(</span><span class="nx">t_left</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">t_right</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">b_left</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">b_right</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="k">return</span> <span class="kc">false</span>
+			<span class="p">}</span>
+
+			<span class="k">if</span><span class="p">((</span><span class="nx">t_left</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">b_left</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">t_right</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">b_right</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">==</span> <span class="mi">1</span> <span class="p">))</span>
+			<span class="p">{</span>
+				<span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+			<span class="p">}</span>
+
+			<span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span></code></pre></figure>
+
+<p>Next, I take a look at the <em>wall_mode</em> to see if the wall is being placed vertically (represented by 1) or horizontally (represented by 2). The first check for each if-statement looks to see if there’s a wall going the same direction at the location clicked. For example, if I was trying to place a vertical wall where there is already a vertical wall, then right side of top or bottom left squares would be blocked. The second check verifies there isn’t a perpendicular wall at the location. This code could be made more readable by making getters for each of the sides of a square, instead of accessing the blocked_sides array directly.</p>
+
+<p>The <em>add_wall</em> method is what actually changes the values of the block array for each of the adjacent squares. The logic I outlined above for determining a wall’s location in relation to the squares on the board get’s used again here, in a slightly more readable fashion thanks to the <em>Square</em> classes setter methods.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">	<span class="c1">// Changes the blocking values on the squares on the board</span>
+	<span class="c1">// Takes in x,y coords from clicking the screen</span>
+	<span class="nx">add_wall</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">wall_mode</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">x</span><span class="o">/</span><span class="mi">70</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+		<span class="nx">y</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">y</span><span class="o">/</span><span class="mi">70</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+		<span class="kd">var</span> <span class="nx">t_left</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">squares</span><span class="p">[</span><span class="nx">y</span><span class="p">][</span><span class="nx">x</span><span class="p">];</span>
+		<span class="kd">var</span> <span class="nx">t_right</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">squares</span><span class="p">[</span><span class="nx">y</span><span class="p">][</span><span class="nx">x</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+		<span class="kd">var</span> <span class="nx">b_left</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">squares</span><span class="p">[</span><span class="nx">y</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="nx">x</span><span class="p">];</span>
+		<span class="kd">var</span> <span class="nx">b_right</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">squares</span><span class="p">[</span><span class="nx">y</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="nx">x</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+
+		<span class="k">if</span><span class="p">(</span><span class="nx">wall_mode</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="nx">t_left</span><span class="p">.</span><span class="nx">block_right</span><span class="p">();</span>
+			<span class="nx">b_left</span><span class="p">.</span><span class="nx">block_right</span><span class="p">();</span>
+			<span class="nx">t_right</span><span class="p">.</span><span class="nx">block_left</span><span class="p">();</span>
+			<span class="nx">b_right</span><span class="p">.</span><span class="nx">block_left</span><span class="p">();</span>
+		<span class="p">}</span>
+		<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">wall_mode</span> <span class="o">===</span> <span class="mi">2</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="nx">t_left</span><span class="p">.</span><span class="nx">block_down</span><span class="p">();</span>
+			<span class="nx">t_right</span><span class="p">.</span><span class="nx">block_down</span><span class="p">();</span>
+			<span class="nx">b_left</span><span class="p">.</span><span class="nx">block_up</span><span class="p">();</span>
+			<span class="nx">b_right</span><span class="p">.</span><span class="nx">block_up</span><span class="p">();</span>
+		<span class="p">}</span>
+	<span class="p">}</span> </code></pre></figure>
+
+<p>Now that we’ve covered the classes that determine what’s drawn on the screen, we can touch on the <em>Player</em> class. For now, all this does is keep track of some relevant data, but moving forward in the project, it will (probably) hold the code for AI players, among other things. The <em>wall_count</em> variable keeps track of how many walls each player can play, and it is decremented when walls are played. It’d probably be better to give it some mutator methods instead of accessing this data in index.html.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">export</span> <span class="kd">class</span> <span class="nx">Player</span> <span class="p">{</span>
+	<span class="kd">constructor</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">board</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">board</span><span class="p">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">pawn</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">pawn</span><span class="p">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">wall_count</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">wall_count</span><span class="p">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">cpu</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">cpu</span><span class="p">;</span>
+	<span class="p">}</span></code></pre></figure>
+
+<p>Alright, now back to index.html. We left off in the create method, right before my event handler. One of the biggest problems with this project right now is that there’s only one event handler. The code would be much more readable if there were more event handlers, but I wanted to get a working prototype together as quickly as I could, so here we are. It’s a work in progress. Anyway, first I’m checking to see if the right mouse button was clicked. If that’s the case, then it changes the <em>wall_mode</em> from 0 (move pawn) to 1 (vertical wall) to 2 (horizontal wall). If we’re moving a pawn, then we access the array of players at the index of the player whose turn it is and move their pawn. The players array, player_num and turn are all globals used to figure out whose turn it is with modulus. The move method returns true if the pawn could be moved, which means the player’s turn is over and we move on to the next turn.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Create an event handler for mouse input</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">pointerdown</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">pointer</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Change wall display state on right click</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">pointer</span><span class="p">.</span><span class="nx">rightButtonDown</span><span class="p">()){</span>
+        	<span class="k">if</span><span class="p">(</span><span class="nx">wall_mode</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span>
+        	<span class="p">{</span>
+        		<span class="nx">wall_mode</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">wall_mode</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        		<span class="nx">wall_mode</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">wall_mode</span> <span class="o">===</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        		<span class="nx">wall_mode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Theres a problem with wall_mode</span><span class="dl">'</span><span class="p">);</span>
+        	<span class="p">}</span>
+        <span class="p">}</span> <span class="c1">// Move pawn if not in wall mode</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">wall_mode</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>   
+        	<span class="k">if</span><span class="p">(</span><span class="nx">players</span><span class="p">[</span><span class="nx">turn</span><span class="o">%</span><span class="nx">player_num</span><span class="p">].</span><span class="nx">pawn</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="nx">pointer</span><span class="p">.</span><span class="nx">worldX</span><span class="p">,</span> <span class="nx">pointer</span><span class="p">.</span><span class="nx">worldY</span><span class="p">))</span>
+        	<span class="p">{</span>
+        		<span class="nx">turn</span><span class="o">++</span><span class="p">;</span>
+        	<span class="p">}</span> 
+        <span class="p">}</span> 
+        <span class="k">else</span>
+        <span class="p">{</span>
+        	<span class="c1">// Check to see if a wall can be placed at the clicked on spot</span>
+        	<span class="c1">// Make sure the player clicking has walls to play</span>
+        	<span class="k">if</span><span class="p">(</span><span class="nx">board</span><span class="p">.</span><span class="nx">check_wall_placement</span><span class="p">(</span><span class="nx">pointer</span><span class="p">.</span><span class="nx">worldX</span><span class="p">,</span> <span class="nx">pointer</span><span class="p">.</span><span class="nx">worldY</span><span class="p">,</span> <span class="nx">wall_mode</span><span class="p">)</span>
+        	 <span class="o">&amp;&amp;</span> <span class="nx">players</span><span class="p">[</span><span class="nx">turn</span><span class="o">%</span><span class="nx">player_num</span><span class="p">].</span><span class="nx">wall_count</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+        	<span class="p">{</span>
+        		<span class="c1">// Add the wall to the board</span>
+        		<span class="nx">board</span><span class="p">.</span><span class="nx">add_wall</span><span class="p">(</span><span class="nx">pointer</span><span class="p">.</span><span class="nx">worldX</span><span class="p">,</span> <span class="nx">pointer</span><span class="p">.</span><span class="nx">worldY</span><span class="p">,</span> <span class="nx">wall_mode</span><span class="p">);</span>
+        		<span class="c1">// Draw the wall on the screen</span>
+        		<span class="kd">var</span> <span class="nx">new_x</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">pointer</span><span class="p">.</span><span class="nx">worldX</span><span class="o">/</span><span class="mi">70</span><span class="p">)</span><span class="o">*</span><span class="mi">70</span><span class="p">);</span>
+        		<span class="kd">var</span> <span class="nx">new_y</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">pointer</span><span class="p">.</span><span class="nx">worldY</span><span class="o">/</span><span class="mi">70</span><span class="p">)</span><span class="o">*</span><span class="mi">70</span><span class="p">);</span>
+        		<span class="kd">var</span> <span class="nx">new_wall</span> <span class="o">=</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="nx">new_x</span><span class="p">,</span> <span class="nx">new_y</span><span class="p">,</span> <span class="dl">'</span><span class="s1">wall</span><span class="dl">'</span><span class="p">);</span>
+        		<span class="c1">// If it was placed horizontally, draw it sideways</span>
+        		<span class="k">if</span> <span class="p">(</span><span class="nx">wall_mode</span> <span class="o">===</span> <span class="mi">2</span><span class="p">)</span>
+        		<span class="p">{</span>
+        			<span class="nx">new_wall</span><span class="p">.</span><span class="nx">angle</span> <span class="o">=</span> <span class="mi">90</span><span class="p">;</span>
+        		<span class="p">}</span>
+        		<span class="nx">players</span><span class="p">[</span><span class="nx">turn</span><span class="o">%</span><span class="nx">player_num</span><span class="p">].</span><span class="nx">wall_count</span><span class="o">--</span><span class="p">;</span>
+        		<span class="nx">turn</span><span class="o">++</span><span class="p">;</span> 
+        	<span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="nx">wall</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">sprite</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="dl">'</span><span class="s1">wall</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>In the case that we’re placing a wall, we use <em>Board</em>’s wall placing methods. Finally, the last thing we do in the create method is make a sprite for the wall. And that’s the create method.</p>
+
+<p>The last method is update. We’ve pretty well set up the games logic in create, so all update does is decide whether we should draw a wall on the screen, and if so, should it be vertical or horizontal.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">update</span> <span class="p">()</span>
+<span class="p">{</span>
+	<span class="c1">// Initialize mouse input</span>
+    <span class="kd">var</span> <span class="nx">pointer</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">activePointer</span><span class="p">;</span>
+	<span class="c1">// Change the display of the wall piece based on the wall_mode value</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">wall_mode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="nx">wall</span><span class="p">.</span><span class="nx">setActive</span><span class="p">(</span><span class="kc">false</span><span class="p">).</span><span class="nx">setVisible</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">wall_mode</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="nx">wall</span><span class="p">.</span><span class="nx">setActive</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="nx">setVisible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+		<span class="nx">wall</span><span class="p">.</span><span class="nx">angle</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="nx">wall</span><span class="p">.</span><span class="nx">setX</span><span class="p">(</span><span class="nx">pointer</span><span class="p">.</span><span class="nx">worldX</span><span class="p">);</span>
+		<span class="nx">wall</span><span class="p">.</span><span class="nx">setY</span><span class="p">(</span><span class="nx">pointer</span><span class="p">.</span><span class="nx">worldY</span><span class="p">);</span>
+	<span class="p">}</span> 
+	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">wall_mode</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="nx">wall</span><span class="p">.</span><span class="nx">setActive</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="nx">setVisible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+		<span class="nx">wall</span><span class="p">.</span><span class="nx">angle</span> <span class="o">=</span> <span class="mi">90</span><span class="p">;</span>
+		<span class="nx">wall</span><span class="p">.</span><span class="nx">setX</span><span class="p">(</span><span class="nx">pointer</span><span class="p">.</span><span class="nx">worldX</span><span class="p">);</span>
+		<span class="nx">wall</span><span class="p">.</span><span class="nx">setY</span><span class="p">(</span><span class="nx">pointer</span><span class="p">.</span><span class="nx">worldY</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>And that’s all the code in the project. This was a good exercise, and I have a much clearer idea of where to go from here with this project. The next few steps are adding winning and losing states, adding AI, and hopefully setting up online play. If you’re reading this, hopefully you found it of some use.</p>
+
+</div>
+    <div class="border-2 border-teal-500 w-full text-center text-xl text-center mt-4 font-mono font-semibold">
+	Bradley Post 2019
+</div>
+
+  </body>
+

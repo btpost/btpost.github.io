@@ -7,8 +7,8 @@
 	],
 	"sourcesContent": [
 		"@import \"main\";",
-		".font-mono {\n\tfont-family: Consolas, Courier, \"Courier New\", monospace;\n}\nh2 {\n\tfont-size: 1.875rem;\n\tfont-weight: bold;\n}\nh3 {\n\tfont-size: 1.5rem;\n\tfont-weight: bold;\n}\nh4 {\n\tfont-size: 1.5rem;\n\tfont-weight: bold;\n}\na {\n\ttext-decoration: underline;\n\t\n}"
+		"@import 'monokai.css';\n\n.font-mono {\n\tfont-family: Consolas, Courier, \"Courier New\", monospace;\n}\nh2 {\n\tfont-size: 1.875rem;\n\tfont-weight: bold;\n}\nh3 {\n\tfont-size: 1.5rem;\n\tfont-weight: bold;\n}\nh4 {\n\tfont-size: 1.5rem;\n\tfont-weight: bold;\n}\n.MathJax_CHTML {\nfont-size: 1.3em !important;\n}\np {\n\tmargin-bottom: 15px;\n}\n"
 	],
 	"names": [],
-	"mappings": "ACAA,AAAA,UAAU,CAAC,EACV,WAAW,EAAE,2CAA2C,GACxD;;AACD,AAAA,EAAE,CAAC,EACF,SAAS,EAAE,QAAQ,EACnB,WAAW,EAAE,IAAI,GACjB;;AACD,AAAA,EAAE,CAAC,EACF,SAAS,EAAE,MAAM,EACjB,WAAW,EAAE,IAAI,GACjB;;AACD,AAAA,EAAE,CAAC,EACF,SAAS,EAAE,MAAM,EACjB,WAAW,EAAE,IAAI,GACjB;;AACD,AAAA,CAAC,CAAC,EACD,eAAe,EAAE,SAAS,GAE1B"
+	"mappings": "ACAA,OAAO,CAAP,gBAAO;AAEP,AAAA,UAAU,CAAC,EACV,WAAW,EAAE,2CAA2C,GACxD;;AACD,AAAA,EAAE,CAAC,EACF,SAAS,EAAE,QAAQ,EACnB,WAAW,EAAE,IAAI,GACjB;;AACD,AAAA,EAAE,CAAC,EACF,SAAS,EAAE,MAAM,EACjB,WAAW,EAAE,IAAI,GACjB;;AACD,AAAA,EAAE,CAAC,EACF,SAAS,EAAE,MAAM,EACjB,WAAW,EAAE,IAAI,GACjB;;AACD,AAAA,cAAc,CAAC,EACf,SAAS,EAAE,gBAAgB,GAC1B;;AACD,AAAA,CAAC,CAAC,EACD,aAAa,EAAE,IAAI,GACnB"
 }

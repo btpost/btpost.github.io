@@ -1,3 +1,4 @@
+@import url(monokai.css);
 .font-mono { font-family: Consolas, Courier, "Courier New", monospace; }
 
 h2 { font-size: 1.875rem; font-weight: bold; }
@@ -6,6 +7,8 @@ h3 { font-size: 1.5rem; font-weight: bold; }
 
 h4 { font-size: 1.5rem; font-weight: bold; }
 
-a { text-decoration: underline; }
+.MathJax_CHTML { font-size: 1.3em !important; }
+
+p { margin-bottom: 15px; }
 
 /*# sourceMappingURL=styles.css.map */
