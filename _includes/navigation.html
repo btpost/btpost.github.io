@@ -1,8 +1,8 @@
 <div>
 	<h1 class="text-4xl font-mono text-teal-500 ml-2 inline"> Brad's Blog </h1>
-	<p class="text-xl font-mono ml-2 inline">Computers and Math</p>
+	<p class="text-xl font-mono ml-2 inline container">Computers and Math</p>
 		<nav>
-			<ul class="flex">
+			<ul class="flex conatiner">
 		  		{% for item in site.data.navigation %}
 		  		<a href="{{ item.link }}" {% if page.url == item.link %}class="current"{% endif %}>
 		  			<div class="bg-blue-900 text-teal-500 border-2 border-teal-500  text-xl text-center font-mono font-semibold hover:bg-teal-500 hover:text-blue-900">
