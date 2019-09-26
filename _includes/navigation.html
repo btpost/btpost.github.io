@@ -2,16 +2,16 @@
 	<h1 class="text-4xl font-mono text-teal-500 ml-2 inline"> Brad's Blog </h1>
 	<p class="text-xl font-mono ml-2 inline container">Computers and Math</p>
 		<nav>
-			<ul class="conatiner">
+			<ul class="flex conatiner">
 		  		{% for item in site.data.navigation %}
-		  		<a href="{{ item.link }}" {% if page.url == item.link %}class="current"{% endif %}>
-		  			<div class="bg-blue-900 text-teal-500 border-2 border-teal-500  text-xl text-center font-mono font-semibold hover:bg-teal-500 hover:text-blue-900" style="width:300px">
+		  		<!-- <a href="{{ item.link }}" {% if page.url == item.link %}class="current"{% endif %}> -->
+		  			<div class="bg-blue-900 text-teal-500 border-2 border-teal-500  text-xl text-center font-mono font-semibold hover:bg-teal-500 hover:text-blue-900">
 			  		
 				  		<li class="my-3">
 				    		{{ item.name }}
 				    	</li>
 		   			</div>
-		   		</a>
+		   		<!-- </a> -->
 		  		{% endfor %}
 		  		<div class="flex border-teal-500 border-t-2 border-b-2 border-r-2 border-l-2 w-full inline-block justify-end">
 			  		<a class="my-auto ml-4" href="https://www.linkedin.com/in/bradley-post-346915181"><img  src="/assets/images/linkedin-128.png" width="50" height="50" /></a>
