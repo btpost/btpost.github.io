@@ -19,30 +19,30 @@ Now we will take a look at a famous *error-correcting* code, namely Hamming (7,4
 
 What does this look like in practice? Well, first we have to make a code that satisfies these qualities. There are many ways to construct binary codes, but I think the simplest it to present a linearly independent set of vectors that span the code, which are distance 3 apart. Knowing that we are sending 4 information bits, we can start with the identity matrix:
 
-<p style="text-align: center;">$$\[\left[ {\begin{array}{cccc} 1 & 0 & 0 & 0 \\
+<p style="text-align: center;">$$ {\begin{array}{cccc} 1 & 0 & 0 & 0 \\
 															  0 & 1 & 0 & 0 \\
 															  0 & 0 & 1 & 0 \\
 															  0 & 0 & 0 & 1 \\
-															  \end{array} \right]
-															  \]$$</p>
+															  \end{array} 
+															  $$</p>
 
 Now, we can see the identity matrix is linearly independent, but each vector is only distance 1 from any other. Hamming (7,4) requires distance 3, so we need to make use of our parity bits to rectify this. Since we have distance one, we need a set of 4 3-bit strings that have at least distance 2. We can use the following four:
 
-<p style="text-align: center;">$$\[\left[ {\begin{array}{ccc} 1 & 1 & 0 \\
+<p style="text-align: center;">$$ {\begin{array}{ccc} 1 & 1 & 0 \\
 															  1 & 0 & 1 \\
 															  0 & 1 & 1 \\
 															  1 & 1 & 1 \\
-															  \end{array} \right]
-															  \]$$</p>
+															  \end{array}
+															  $$</p>
 
 Now, if we simply append these directly to the parity matrix, we end of with a basis for our code, with 4 binary strings of length 7. 
 
-<p style="text-align: center;">$$\[\left[ {\begin{array}{cccc} 1 & 0 & 0 & 0 & 1 & 1 & 0 \\
+<p style="text-align: center;">$$ {\begin{array}{cccc} 1 & 0 & 0 & 0 & 1 & 1 & 0 \\
 															  0 & 1 & 0 & 0 & 1 & 0 & 1 \\
 															  0 & 0 & 1 & 0 & 0 & 1 & 1 \\
 															  0 & 0 & 0 & 1 & 1 & 1 & 1 \\
-															  \end{array} \right]
-															  \]$$</p>
+															  \end{array}
+															  $$</p>
 
 This is what's known as a generator matrix. Every possible codeword in this code is a linear combination of these four strings. Note that this is the standard generator matrix for Hamming (7,4), but we could make many codes with the exact behavior but different generators (24 I think, but I don't have a perfect proof). Now, we can define the parity checks for each of the parity bits. Each parity bit $$\mathbf{XOR}$$'s three information bits. Knowing this, we can see by inspecting the matrix that they're defined as follows:
 
@@ -58,7 +58,7 @@ First, we can see that the parity bits are off. If our message was intended to b
 
 To make things easier for ourselves, we can think of the parity as a venn diagram, and use the diagram to help us correct messages more quickly.
 
-![Parity Venn Diagram](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Hamming%287%2C4%29.svg/300px-Hamming%287%2C4%29.svg.png)
+<a style="text-align: center">![Parity Venn Diagram](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Hamming%287%2C4%29.svg/300px-Hamming%287%2C4%29.svg.png)</a>
 
 In the above diagram $$d_1 - d_4$$ are our message bits, while $$p_1 - p_3$$ are our parity bits. For any codeword placed in the diagram above, each circle will have even parity. If there has been an error, no circle will have even parity. If it is possible to change a single bit to ensure each circle has even parity, then you know there has only been one error, and which bit it is. Otherwise, you know the transmitted string cannot be corrected. I find the venn diagram much faster than working logically like in the example, however the easiest thing to do is to get a computer to do it for you :).
 
